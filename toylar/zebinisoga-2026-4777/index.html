@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zebinisoga — Taklifnoma</title>
+    <meta property="og:title" content="Zebinisoga — Taklifnoma">
+    <meta property="og:description" content="Azizim... Bilaman, ko&#39;nglingizni og&#39;ritdim. Siz men uchun naqadar qadrli ekanligingizni bilishingizni istayman. Xatolarimni chuqur angladim va sizdan chin qalbimdan uzr so&#39;rayman. Keling, barcha ginalarni unutilib, mehrimizni qayta tiklaylik.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --rose-primary: #d87093;
+            --rose-dark: #8c3b57;
+            --rose-light: #fff0f5;
+            --bg-color: #faf5f6;
+            --card-bg: rgba(255, 255, 255, 0.94);
+            --text-dark: #3a2e39;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #f7ebee;
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            background-image: radial-gradient(circle at 50% 10%, #fff 0%, #f7ebee 100%);
+            overflow-x: hidden;
+        }
+
+        .phone-wrapper {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #fff9fa 0%, #faf3f5 50%, #f5e9ed 100%);
+            box-shadow: 0 0 40px rgba(216, 112, 147, 0.18);
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid var(--rose-primary);
+            color: var(--rose-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(216, 112, 147, 0.3);
+            transition: all 0.3s ease;
+        }
+        .music-btn.playing i {
+            animation: rotateDisk 4s linear infinite;
+        }
+        @keyframes rotateDisk {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 245, 247, 0.98);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 24px;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .welcome-overlay.opened {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-100%);
+        }
+        .flower-seal {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #e88ba9 0%, #bf4d74 100%);
+            box-shadow: 0 0 25px rgba(216, 112, 147, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            color: #fff;
+            margin-bottom: 25px;
+            cursor: pointer;
+            animation: pulseFloral 2s infinite ease-in-out;
+        }
+        @keyframes pulseFloral {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        .open-btn {
+            background: linear-gradient(135deg, #d87093 0%, #aa3960 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            padding: 15px 34px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(216, 112, 147, 0.4);
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero {
+            padding: 60px 20px 30px;
+            text-align: center;
+        }
+        .floral-wreath {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            border: 2px dashed var(--rose-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(216, 112, 147, 0.2);
+        }
+        .monogram-text {
+            font-family: 'Alex Brush', cursive;
+            font-size: 45px;
+            color: var(--rose-dark);
+        }
+        .event-badge {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--rose-dark);
+            background: #ffe4e9;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .couple-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--rose-dark);
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+        .invitation-quote {
+            padding: 0 15px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            line-height: 1.7;
+            font-style: italic;
+            color: #614f5c;
+            margin-bottom: 25px;
+        }
+        .date-display {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 21px;
+            color: var(--rose-dark);
+            font-weight: 600;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid #ffd4e0;
+            border-radius: 18px;
+            margin: 18px 16px;
+            padding: 24px 18px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(216, 112, 147, 0.08);
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--rose-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .countdown-item {
+            background: #fff0f3;
+            border-radius: 12px;
+            padding: 12px 4px;
+        }
+        .countdown-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--rose-dark);
+            display: block;
+        }
+        .countdown-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #8c6e7a;
+            margin-top: 2px;
+            display: block;
+        }
+
+        .venue-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--rose-dark);
+            margin-bottom: 6px;
+        }
+        .venue-address {
+            font-size: 13px;
+            color: #70626b;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+        .map-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-rose {
+            background: linear-gradient(135deg, var(--rose-primary), var(--rose-dark));
+            color: #fff;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--rose-primary);
+            color: var(--rose-primary);
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--rose-dark);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .form-control {
+            width: 100%;
+            background: #fff;
+            border: 1px solid #ffd4e0;
+            border-radius: 10px;
+            padding: 11px 13px;
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+        }
+        .form-control:focus {
+            border-color: var(--rose-primary);
+        }
+        .status-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .status-card {
+            border: 1px solid #ffd4e0;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            background: #fff;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-card.selected {
+            border-color: var(--rose-primary);
+            background: #ffe9ef;
+            color: var(--rose-dark);
+        }
+        .calendar-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .toast-msg {
+            display: none;
+            background: #27ae60;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://unvolatile-breathtakingly-cecelia.ngrok-free.dev/app/static/uploads/audio/audio_d10467de_Adele_-_Lovesong_478.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="music-btn" id="musicToggleBtn" title="Musiqa">
+        <i class="fa-solid fa-compact-disc"></i>
+    </button>
+
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="flower-seal" onclick="openInvitation()">
+            <i class="fa-solid fa-seedling"></i>
+        </div>
+        <p style="font-size: 12px; letter-spacing: 2px; color: var(--rose-dark); text-transform: uppercase;">
+            Nafis Taklifnoma
+        </p>
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 30px; color: var(--rose-dark); margin: 8px 0 12px;">
+            Zebinisoga
+        </h2>
+        <p style="color: #6b5c66; font-size: 13px; max-width: 280px; line-height: 1.6;">
+            Sizni ushbu quvonchli oqshomimizda mehmon bo'lishga chorlaymiz!
+        </p>
+        <button class="open-btn" onclick="openInvitation()">
+            <i class="fa-solid fa-envelope-open-text"></i> Taklifnomani ochish
+        </button>
+    </div>
+
+    <div class="phone-wrapper">
+        <section class="hero">
+            <div class="floral-wreath">
+                <span class="monogram-text">ZE</span>
+            </div>
+            <div>
+                <span class="event-badge">
+                    Tantanali Kun
+                </span>
+            </div>
+            <h1 class="couple-names">Zebinisoga</h1>
+            <p class="invitation-quote">
+                Azizim... Bilaman, ko&#39;nglingizni og&#39;ritdim. Siz men uchun naqadar qadrli ekanligingizni bilishingizni istayman. Xatolarimni chuqur angladim va sizdan chin qalbimdan uzr so&#39;rayman. Keling, barcha ginalarni unutilib, mehrimizni qayta tiklaylik.
+            </p>
+            <div class="date-display">
+                <i class="fa-regular fa-calendar-heart" style="margin-right: 6px;"></i>
+                18-Noyabr, 2026-yil (Chorshanba), soat 08:00
+            </div>
+        </section>
+
+        <!-- Countdown -->
+        <section class="section-card">
+            <h3 class="section-title"><i class="fa-regular fa-heart"></i> Baxtli kunga qadar</h3>
+            <div class="countdown-grid">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="cdDays">00</span>
+                    <span class="countdown-label">Kun</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="cdHours">00</span>
+                    <span class="countdown-label">Soat</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="cdMinutes">00</span>
+                    <span class="countdown-label">Daqiqa</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="cdSeconds">00</span>
+                    <span class="countdown-label">Soniya</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Venue -->
+        <section class="section-card">
+            <h3 class="section-title"><i class="fa-solid fa-location-dot"></i> To'yxona & Manzil</h3>
+            <div class="venue-name">Maktab yoni</div>
+            <div class="venue-address">Shahar markaziy tantanalar saroyi</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                
+                <a href="https://yandex.com/maps/?pt=69.2401,41.2995&z=16&l=map" target="_blank" class="map-btn btn-rose">
+                    <i class="fa-solid fa-map-pin"></i> Xaritada ko'rish
+                </a>
+                <a href="https://maps.google.com/?q=41.2995,69.2401" target="_blank" class="map-btn btn-outline">
+                    <i class="fa-brands fa-google"></i> Google Maps
+                </a>
+                
+            </div>
+        </section>
+
+        <!-- Calendar -->
+        <section class="section-card">
+            <h3 class="section-title"><i class="fa-regular fa-calendar-check"></i> Kalendarga saqlash</h3>
+            <div class="calendar-links">
+                <button onclick="addToGoogleCalendar()" class="map-btn btn-outline">Google</button>
+                <button onclick="downloadICal()" class="map-btn btn-outline">Apple / iCal</button>
+            </div>
+        </section>
+
+        <!-- RSVP Form -->
+        <section class="section-card">
+            <h3 class="section-title"><i class="fa-solid fa-feather"></i> Tashrifingizni bildiring</h3>
+            <form onsubmit="handleRsvpSubmit(event)">
+                <div class="form-group">
+                    <label>Ism-familiyangiz:</label>
+                    <input type="text" class="form-control" id="guestName" placeholder="Hurmatli mehmon" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefon raqam:</label>
+                    <input type="tel" class="form-control" id="guestPhone" placeholder="+998 90 ...">
+                </div>
+                <div class="form-group">
+                    <label>Tashrif holati:</label>
+                    <div class="status-options">
+                        <div class="status-card selected" id="optAttending" onclick="selectStatus('attending')">
+                            🌸 Albatta boraman
+                        </div>
+                        <div class="status-card" id="optDeclined" onclick="selectStatus('declined')">
+                            Afsus, borolmayman
+                        </div>
+                    </div>
+                    <input type="hidden" id="attendanceStatus" value="attending">
+                </div>
+                <div class="form-group" id="guestsCountGroup">
+                    <label>Kishilar soni:</label>
+                    <select class="form-control" id="guestsCount">
+                        <option value="1">1 kishi</option>
+                        <option value="2" selected>2 kishi</option>
+                        <option value="3">3 kishi</option>
+                        <option value="4">4+ kishi</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Samimiy tilaklar:</label>
+                    <textarea class="form-control" id="guestWishes" rows="2" placeholder="Oq yo'l va cheksiz baxt tilaymiz..."></textarea>
+                </div>
+                <button type="submit" class="map-btn btn-rose" style="width: 100%; border: none; cursor: pointer;" id="submitRsvpBtn">
+                    Yuborish
+                </button>
+                <div class="toast-msg" id="rsvpToast">Katta rahmat! Javobingiz yuborildi.</div>
+            </form>
+        </section>
+
+        <div style="text-align: center; font-size: 11px; color: #9c8b95; padding-top: 25px;">
+            @Online_taklifnoma_uz_bot orqali tayyorlandi
+        </div>
+    </div>
+
+    <script>
+        const eventDateStr = "2026-11-18T08:00:00+00:00";
+        const invitationSlug = "zebinisoga-2026-4777";
+        const apiBaseUrl = "https://unvolatile-breathtakingly-cecelia.ngrok-free.dev";
+
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicToggleBtn');
+        const welcomeOverlay = document.getElementById('welcomeOverlay');
+        let isMusicPlaying = false;
+
+        function openInvitation() {
+            welcomeOverlay.classList.add('opened');
+            if (bgMusic) {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicBtn.classList.add('playing');
+                }).catch(e => console.log(e));
+            }
+        }
+
+        musicBtn.addEventListener('click', () => {
+            if (!bgMusic) return;
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                isMusicPlaying = false;
+                musicBtn.classList.remove('playing');
+            } else {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicBtn.classList.add('playing');
+                });
+            }
+        });
+
+        function updateCountdown() {
+            const target = new Date(eventDateStr).getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+            if (diff <= 0) return;
+            document.getElementById('cdDays').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            document.getElementById('cdHours').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById('cdMinutes').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            document.getElementById('cdSeconds').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function selectStatus(s) {
+            document.getElementById('attendanceStatus').value = s;
+            document.getElementById('optAttending').classList.toggle('selected', s === 'attending');
+            document.getElementById('optDeclined').classList.toggle('selected', s === 'declined');
+            document.getElementById('guestsCountGroup').style.display = s === 'attending' ? 'block' : 'none';
+        }
+
+        async function handleRsvpSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitRsvpBtn');
+            const toast = document.getElementById('rsvpToast');
+            btn.disabled = true;
+            btn.innerText = 'Yuborilmoqda...';
+
+            try {
+                await fetch(`${apiBaseUrl}/api/rsvp`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        invitation_slug: invitationSlug,
+                        guest_name: document.getElementById('guestName').value.trim(),
+                        phone_number: document.getElementById('guestPhone').value.trim() || null,
+                        status: document.getElementById('attendanceStatus').value,
+                        guests_count: parseInt(document.getElementById('guestsCount').value) || 1,
+                        wishes: document.getElementById('guestWishes').value.trim() || null
+                    })
+                });
+                toast.style.display = 'block';
+                btn.innerText = 'Qabul qilindi';
+            } catch(e) {
+                btn.disabled = false;
+                btn.innerText = 'Qayta urinish';
+            }
+        }
+
+        function addToGoogleCalendar() {
+            const start = new Date(eventDateStr);
+            const end = new Date(start.getTime() + 4 * 3600000);
+            const f = (d) => d.toISOString().replace(/-|:|\.\d\d\d/g, "");
+            window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Zebinisoga")}&dates=${f(start)}/${f(end)}&location=${encodeURIComponent("Maktab yoni")}`, '_blank');
+        }
+
+        function downloadICal() {
+            const start = new Date(eventDateStr);
+            const end = new Date(start.getTime() + 4 * 3600000);
+            const f = (d) => d.toISOString().replace(/-|:|\.\d\d\d/g, "");
+            const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:Zebinisoga\nLOCATION:Maktab yoni\nDTSTART:${f(start)}\nDTEND:${f(end)}\nEND:VEVENT\nEND:VCALENDAR`;
+            const blob = new Blob([ics], { type: 'text/calendar' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'taklifnoma.ics';
+            a.click();
+        }
+    </script>
+</body>
+</html>
